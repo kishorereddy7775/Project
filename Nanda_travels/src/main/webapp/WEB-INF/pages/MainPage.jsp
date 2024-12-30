@@ -9,22 +9,20 @@
 </head>
 <body>
 	<%String name=request.getParameter("name"); 
-		String id=request.getParameter("id");
-		System.out.println("Inside MainPage.jsp page");
-		System.out.println(id);%>
+		String id=request.getParameter("user_id");%>
 		
 	<h1>Welcome <%=name %>!!</h1>
 	
 	<a href="redirecttobooking?user_id=<%=id %>">Book a Journey</a>
 	</br>
 	</br>
-	<a href="cancel.jsp?user_id=<%=id %>&msg=null">Cancel a Journey</a>
+	<a href="redirecttocancel?user_id=<%=id %>">Cancel a Journey</a>
 	</br>
 	</br>
-	<a href="reschedule.jsp?user_id=<%=id %>">Reschedule a Journey</a>
+	<a href="redirecttoreshedule?user_id=<%=id %>">Reschedule a Journey</a>
 	</br>
 	</br>
-	<a href="index.html">Logout</a>
+	<a href="redirectLogin">Logout</a>
 	
 </body>
 </html>

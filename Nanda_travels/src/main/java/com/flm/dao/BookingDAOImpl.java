@@ -16,6 +16,9 @@ public class BookingDAOImpl implements BookingDAO {
 	String InsertBooking="insert into bookings (user_id,route_id,seatsbooked,amountpaid) values (?,?,?,?)";
 	String UpdateRoute="Update route set numseats=? where route_id=?";
 	String getbook="select booking_id from bookings where user_id=? and route_id=?";
+	String getboodwithbookid="select * from bookings inner join route on bookings.route_id=route.route_id where user_id=? and booking_id=?";
+	String cancelbook1="update route set numseats=? where route_id=?";
+	String cancelbook2="Delete from bookings where booking_id=?";
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
@@ -23,7 +26,10 @@ public class BookingDAOImpl implements BookingDAO {
 	RouteRowMapper routeMapper;
 	
 	@Autowired
-	BookingRowMapper bookingMapper;
+	BookingIDRowMapper bookingMapper;
+	
+	@Autowired
+	GetBookingRowMapper getbookMapper;
 	
 	@Override
 	public Route getRoute(Booking book) {
@@ -40,6 +46,22 @@ public class BookingDAOImpl implements BookingDAO {
 		List<Booking> books=jdbcTemplate.query(getbook,bookingMapper,book.getUserId(),book.getRouteId());
 		return books.get(0);
 	}
+
+	@Override
+	public Booking getBookingDetails(int booking_id, int user_id) {
+		List<Booking> books=jdbcTemplate.query(getboodwithbookid, getbookMapper,user_id,booking_id);
+		return books.get(0);
+	}
+
+	@Override
+	public void cancelBooking(Booking bo) {
+		int newseats=bo.getNumberOfSeatsAvailable()+bo.getNumberOfSeatsRequired();
+		jdbcTemplate.update(cancelbook1,newseats,bo.getRouteId());
+		jdbcTemplate.update(cancelbook2,bo.getBookingId());
+	}
+	
+	
+	
 	
 
 }

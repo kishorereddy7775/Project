@@ -37,7 +37,7 @@
 		</table>
 		<input type="hidden" name="user_id" value="<%=id%>">
 	</form>
-	<a href="MainPage.jsp?user_id=<%=id%>">Main Page</a>
+	<a href="redirecttoMainPage?user_id=<%=id%>">Main Page</a>
 	<br>
 
 	<%

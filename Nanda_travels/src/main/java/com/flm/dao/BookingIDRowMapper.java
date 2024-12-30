@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.flm.model.Booking;
 
 @Component
-public class BookingRowMapper implements RowMapper<Booking>{
+public class BookingIDRowMapper implements RowMapper<Booking>{
 
 	@Override
 	public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {

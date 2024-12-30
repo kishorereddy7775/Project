@@ -2,6 +2,7 @@ package com.flm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.flm.dao.BookingDAO;
@@ -48,4 +49,53 @@ public class BookingController {
 		return "booking.jsp?user_id="+user_id+"&msg="+message;
 	}
 	
+	@RequestMapping("/redirecttocancel")
+	public String redirecttocancel(HttpServletRequest request) {
+		String id=request.getParameter("user_id");
+		System.out.println("'"+id+"'");
+		return "cancel.jsp?user_id="+id;
+	}
+	
+	@RequestMapping("/cancelbooking")
+	public String cancelbooking(HttpServletRequest request,Model m) {
+		int book_id=Integer.parseInt(request.getParameter("book_id"));
+		int id=Integer.parseInt(request.getParameter("user_id"));
+		Booking book=dao.getBookingDetails(book_id, id);
+		dao.cancelBooking(book);
+		m.addAttribute("booking", book);
+		return "cancel.jsp?msg=Cancelled Successfully";
+	}
+	
+	@RequestMapping("/redirecttoreshedule")
+	public String redirecttoreshedule(HttpServletRequest request) {
+		String id=request.getParameter("user_id");
+		System.out.println("'"+id+"'");
+		return "reschedule.jsp?user_id="+id;
+	}
+	
+	@RequestMapping("/reschedulebook")
+	public String reschedulebooking(HttpServletRequest request) {
+		int id=Integer.parseInt(request.getParameter("user_id"));
+		int book_id=Integer.parseInt(request.getParameter("book_id"));
+		String date=request.getParameter("date");
+		Booking book=dao.getBookingDetails(book_id, id);
+		Booking new_book=book;
+		new_book.setRouteId(0);
+		new_book.setDate(date);
+		Route available_route=dao.getRoute(new_book);
+		new_book.updateroute(available_route);
+		if(new_book.getRouteId()==0) {
+			String message="No Buses are available in that route...!";
+			return "reschedule.jsp?user_id="+id+"&msg="+message;
+		}else if(new_book.getNumberOfSeatsAvailable()<new_book.getNumberOfSeatsRequired()) {
+			String message="No seats Available!!";
+			return "reschedule.jsp?user_id="+id+"&msg="+message;
+		}
+		Booking com_book=dao.bookticket(new_book);
+		String message="Successfully Rescheduled the ticket and the Booking ID is "+com_book.getBookingId();
+		dao.cancelBooking(book);
+		return "reschedule.jsp?user_id="+id+"&msg="+message;
+	}
+	
 }
+

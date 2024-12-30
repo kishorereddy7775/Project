@@ -52,10 +52,12 @@ public class LoginController {
 				return "Login.jsp?msg=Invalid Password&num="+attempt_remaining;
 			}
 		}
-		System.out.println("Inside login validation");
-		System.out.println(user.getUser_id());
-		
-		return "MainPage.jsp?name="+user.getFirstName()+"&id="+user.getUser_id();
+		return "MainPage.jsp?name="+user.getFirstName()+"&user_id="+user.getUser_id();
 	}
 	
+	@RequestMapping("/redirecttoMainPage")
+	public String redirecttoMainPage(HttpServletRequest request) {
+		String id=request.getParameter("user_id");
+		return "MainPage.jsp?user_id="+id;
+	}
 }
