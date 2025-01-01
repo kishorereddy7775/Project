@@ -26,7 +26,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	String num = request.getParameter("num");
 	%>
 	<h1>Welcome to Nanda's Travels</h1>
-	<form action="LoginValidation" method="post">
+	<form action="AgentLoginValidation" method="post">
 		<table>
 			<tr>
 				<td>User ID :</td>
@@ -37,8 +37,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				<td><input type="password" name="password"></td>
 			</tr>
 			<tr>
-				<td><input type="submit"></td>
-				<td><a href="redirecttosignup">Sign up</a></td>
+				<td colspan="2"><input type="submit"></td>
 			</tr>
 		</table>
 	</form>
@@ -53,7 +52,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	} else if (message != null && message.equalsIgnoreCase("Account Locked")) {
 	%>
 	<h4><%=message%></h4>
-	<a href="redirecttoUnlock">Unlock account</a>
+
 	<%
 	} else if (message != null && message.equalsIgnoreCase("Signup Successfull!!")) {
 	%>

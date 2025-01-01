@@ -21,6 +21,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 </head>
 
 <body>
-	<a href="redirectLogin">Login Page!!</a>
+	<a href="redirectLogin">User Login Page!!</a>
+	<br>
+	<br>
+	<a href="redirectAgentLogin">Admin Login Page!!</a>
 </body>
 </html>
