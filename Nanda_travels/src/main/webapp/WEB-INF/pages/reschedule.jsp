@@ -10,6 +10,7 @@
 	<%
 	String message = request.getParameter("msg");
 	String id = request.getParameter("user_id");
+	String book_id=request.getParameter("book_id");
 	%>
 	<h1>Reschedule a Journey</h1>
 	<form action="reschedulebook" method="post">
@@ -20,7 +21,7 @@
 			</tr>
 			<tr>
 				<td>Booking :</td>
-				<td><input type="number" name="book_id"></td>
+				<td><input type="number" name="book_id" value="<%=book_id %>"></td>
 			</tr>
 			<tr>
 				<td>Date :</td>

@@ -38,7 +38,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</tr>
 			<tr>
 				<td><input type="submit"></td>
-				<td><a href="Signup.html">Sign up</a></td>
+				<td><a href="redirecttosignup">Sign up</a></td>
 			</tr>
 		</table>
 	</form>
@@ -50,10 +50,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		attempts remaining
 	</h4>
 	<%
-	}else if(message != null && message.equalsIgnoreCase("Account Locked")){
+	} else if (message != null && message.equalsIgnoreCase("Account Locked")) {
 	%>
 	<h4><%=message%></h4>
 	<a href="redirecttoUnlock">Unlock account</a>
+	<%
+	} else if (message != null && message.equalsIgnoreCase("Signup Successfull!!")) {
+	%>
+	<h4><%=message%></h4>
 	<%
 	}
 	%>

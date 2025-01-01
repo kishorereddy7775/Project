@@ -17,6 +17,10 @@ public class RouteRowMapper implements RowMapper<Route> {
 		route.setRouteId(rs.getInt("route_id"));
 		route.setNumberOfSeatsAvailable(rs.getInt("numseats"));
 		route.setPriceOfEachTicket(rs.getInt("price"));
+		route.setDate(rs.getString("date"));
+		route.setDestination(rs.getString("destination"));
+		route.setSource(rs.getString("source"));
+		route.setBusName(rs.getString("busName"));
 		return route;
 	}
 
